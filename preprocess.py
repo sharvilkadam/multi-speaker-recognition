@@ -1,5 +1,7 @@
 from scipy.io import wavfile
 import numpy as np
+import os
+import shutil
 from scipy.signal import medfilt
 
 
@@ -81,14 +83,13 @@ def calc_histogram_boundary_centers(hist_bounds):
 	return centers
 
 
-if __name__ == '__main__':
+def preprocess(filename, debug=False):
 	# Read the wave file
-	bit_rate, raw_wav = wavfile.read('input.wav')
-	# bit_rate, raw_wav = wavfile.read('example.wav')
+	bit_rate, raw_wav = wavfile.read(filename)
 
 	# Scale the maximum of absolute amplitude to 1
-	processed_wav = (raw_wav - raw_wav.max()) / -raw_wav.ptp()
-	# processed_wav = raw_wav / raw_wav.max()
+	# processed_wav = (raw_wav - raw_wav.max()) / -raw_wav.ptp()
+	processed_wav = raw_wav / raw_wav.max()
 
 	# 50ms window size
 	window_size = 0.050
@@ -101,14 +102,15 @@ if __name__ == '__main__':
 	cor = spectral_centroid(processed_wav, int(window_size * bit_rate), int(step_size * bit_rate), bit_rate)
 
 	# Apply median filtering in the feature sequence twice
-	E = medfilt(medfilt(eor, [5]), [5])
-	C = medfilt(medfilt(cor, [5]), [5])
+	smoothing_step_size = 7
+	E = medfilt(medfilt(eor, [smoothing_step_size]), [smoothing_step_size])
+	C = medfilt(medfilt(cor, [smoothing_step_size]), [smoothing_step_size])
 
 	# Get the average values of the smoothed feature sequences
 	E_mean = E.mean()
 	C_mean = C.mean()
 
-	weight = 5
+	weight = 6
 
 	# Find energy threshold
 	hist_e, bounds_e = np.histogram(E, int(np.round(len(E) / 10)))
@@ -172,13 +174,22 @@ if __name__ == '__main__':
 	# Get final segments
 	segments = []
 	for i in range(0, limits.shape[0]):
-		segments.append(raw_wav[limits[i][0]:limits[i][1] + 1])
+		segments.append(processed_wav[limits[i][0]:limits[i][1] + 1])
 
-	for i in range(len(segments)):
-		wavfile.write("file" + str(i) + ".wav", bit_rate, segments[i])
-		print(segments[i].shape)
+	if debug:
+		__debug_directory = "debug"
+		if os.path.exists(__debug_directory):
+			shutil.rmtree(__debug_directory)
+
+		os.makedirs(__debug_directory)
+
+		for i in range(len(segments)):
+			wavfile.write(__debug_directory + os.sep + "file" + str(i) + ".wav", bit_rate, segments[i])
+			print(segments[i].shape)
+
+	return segments
 
 
-import matplotlib.pyplot as pyplot
-
-pyplot.hist2d
+if __name__ == '__main__':
+	preprocess('input.wav', debug=True)
+	# preprocess('example.wav', debug=True)
