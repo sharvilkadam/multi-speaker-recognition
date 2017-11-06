@@ -187,9 +187,9 @@ def preprocess(filename, debug=False):
 			wavfile.write(__debug_directory + os.sep + "file" + str(i) + ".wav", bit_rate, segments[i])
 			print(segments[i].shape)
 
-	return segments
+	return segments, bit_rate
 
 
 if __name__ == '__main__':
 	preprocess('input.wav', debug=True)
-	# preprocess('example.wav', debug=True)
+# preprocess('example.wav', debug=True)
