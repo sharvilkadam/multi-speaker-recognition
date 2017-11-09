@@ -102,7 +102,7 @@ def preprocess(filename, debug=False):
 	cor = spectral_centroid(processed_wav, int(window_size * bit_rate), int(step_size * bit_rate), bit_rate)
 
 	# Apply median filtering in the feature sequence twice
-	smoothing_step_size = 7
+	smoothing_step_size = 5
 	E = medfilt(medfilt(eor, [smoothing_step_size]), [smoothing_step_size])
 	C = medfilt(medfilt(cor, [smoothing_step_size]), [smoothing_step_size])
 
@@ -191,5 +191,5 @@ def preprocess(filename, debug=False):
 
 
 if __name__ == '__main__':
-	preprocess('input.wav', debug=True)
+	preprocess('../data/timit_converted/TRAIN/DR1-FCJF0-SI1657.wav', debug=True)
 # preprocess('example.wav', debug=True)
