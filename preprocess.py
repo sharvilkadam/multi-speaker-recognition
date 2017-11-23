@@ -191,5 +191,6 @@ def preprocess(filename, debug=False):
 
 
 if __name__ == '__main__':
-	preprocess('../data/timit_converted/TRAIN/DR1-FCJF0-SI1657.wav', debug=True)
+	s,b = preprocess('../data/converted/TRAIN/DR1-MCPM0-SA1.wav', debug=True)
+	print(np.hstack(s).shape)
 # preprocess('example.wav', debug=True)

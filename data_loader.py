@@ -3,11 +3,12 @@ import time
 from datetime import datetime
 
 import numpy as np
-import sklearn
+import scipy.io as spio
 
 start_time = time.time()
 print(datetime.now())
 print()
+
 
 def get_attributes(fname):
     attr = fname.split('.')[0].split('-')
@@ -17,13 +18,25 @@ def get_attributes(fname):
     sentence_type = attr[2][:2]
     return dialect, gender, speaker_id, sentence_type
 
-INPUT_FOLDER = '../data/preprocessed/TRAIN_TEST_200'
+
+INPUT_FOLDER = '../data/preprocessed/train'
 TRAIN_FOLDER = '../data/normalized/train'
 TEST_FOLDER = '../data/normalized/test'
 
 files = [f for f in os.listdir(INPUT_FOLDER) if os.path.isfile(os.path.join(INPUT_FOLDER, f))]
 train = {}
 test = {}
+
+
+def hamming(x, win_size=10, hop_size=3):
+    r, c = x.shape
+    y = []
+    for i in range(0, c, hop_size):
+        if i + win_size > c:
+            break
+        y.append(x[:, i:i + win_size].T.flatten())
+    return np.array(y)
+
 
 # split train test
 for file in files:
@@ -34,15 +47,16 @@ for file in files:
     else:
         train.setdefault(speaker_id, []).append(file)
 
+
 def smvn(flist):
     data = []
     orig = []
     for fname in flist:
-        filedata = np.load(os.path.join(INPUT_FOLDER, fname))
+        filedata = spio.loadmat(os.path.join(INPUT_FOLDER, fname))['data']
         orig.append((fname, filedata))
-        for segment in filedata:
-            for x in segment:
-                data.append(x) # dim(x) => (390,)
+        ft = filedata.T # dim(ft) = (k,39)
+        for frame in ft:
+            data.append(frame)  # dim(x) => (390,)
     data = np.array(data)
 
     # zero-mean and unit-variance normalization => (x - mean)/std
@@ -50,27 +64,24 @@ def smvn(flist):
     std = data.std()
 
     for fname, filedata in orig:
-        for i in range(len(filedata)):
-            filedata[i] = (filedata[i]-mean)/std
-        np.save(os.path.join(TRAIN_FOLDER, fname), filedata)
+        filedata = hamming((filedata - mean) / std)
+        # np.save(os.path.join(TRAIN_FOLDER, fname[:-4]), filedata)
+        spio.savemat(os.path.join(TRAIN_FOLDER, fname), dict(data=filedata))
         print('Written', fname)
 
+
 def mvn(fname):
-    data = []
-    filedata = np.load(os.path.join(INPUT_FOLDER, fname))
-    for segment in filedata:
-        for x in segment:
-            data.append(x)  # dim(x) => (390,)
-    data = np.array(data)
+    filedata = spio.loadmat(os.path.join(INPUT_FOLDER, fname))['data']
 
     # zero-mean and unit-variance normalization => (x - mean)/std
-    mean = data.mean()
-    std = data.std()
+    mean = filedata.mean()
+    std = filedata.std()
 
-    for i in range(len(filedata)):
-        filedata[i] = (filedata[i] - mean) / std
-    np.save(os.path.join(TEST_FOLDER, fname), filedata)
+    filedata = hamming((filedata - mean) / std)
+    # np.save(os.path.join(TEST_FOLDER, fname[:-4]), filedata)
+    spio.savemat(os.path.join(TEST_FOLDER, fname), dict(data=filedata))
     print('Written', fname)
+
 
 # SMVN train
 for key, flist in train.items():
