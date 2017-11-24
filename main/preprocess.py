@@ -41,13 +41,13 @@ def preprocess_file(input_path, output_path):
 
 
 def preprocess(in_dir, out_dir, speaker_name, file_name):
+    speaker_dir = out_dir + speaker_name + '/'
     input_path = in_dir + speaker_name + '/' + file_name
     output_path = speaker_dir + file_name[:-4] + '.npy'
-    speaker_dir = out_dir + speaker_name + '/'
     if not os.path.exists(speaker_dir):
         os.makedirs(speaker_dir)
     return preprocess_file(input_path, output_path)
 
 
 if __name__ == '__main__':
-    preprocess('speakers/raw/', 'speakers/preprocessed/', 'Pratik', 'SX.wav')
+    preprocess('speakers/raw/', 'speakers/preprocessed/', 'Sushant', 'SX.wav')

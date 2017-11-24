@@ -65,7 +65,7 @@ if __name__ == '__main__':
             record()
         elif opt == 2:  # Enroll / Train
             enroll()
-        elif opt == 3:
+        elif opt == 3:  # Eval
             test(ID_FILE)
         elif opt == 4:  # Exit
             break
