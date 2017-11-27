@@ -29,9 +29,22 @@ def add_question(new_question):
 	with open('questions.json', mode='w') as q_json:
 		q_json.write(json.dumps(questions, indent=2))
 
-def get_answer(question_id, speaker_name)
-	
+def get_answer(question_id, speaker_name):
+	apath = '/home/sharvil/deepLearning/projec/python/answers/'
+	filename = speaker_name+'_ans.json'
+	fullpath = apath + filename
+	if path.isfile(fullpath):
+		with open(fullpath, mode='r') as a_json:
+			answers = json.load(a_json)
+		if question_id in answers.keys():
+		    return answers[question_id]
+		else:
+			return answers["0"]
+	else:
+		return "No answers for "+speaker_name
+
 
 if __name__ == '__main__':
 	#add_question("What is my schedule")
-	#enroll_answer(1,"Watch the movie U.N.C.L.E.",1,'Vritvij')
+	enroll_answer(3,"Watch the movie U.N.C.L.E.",1,'Vritvij')
+	#print(get_answer("1","Vritvij"))
