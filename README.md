@@ -1,4 +1,4 @@
-#Multi-Speaker Recognition and Speaker Specific Question Answering System
+# Multi-Speaker Recognition and Speaker Specific Question Answering System
 
 ## The Team:
 - Pratik Varshney (pvarshney@usc.edu)
@@ -17,11 +17,12 @@ Multi Speaker Recognition and Limited domain question answering system is an app
 ## UI/UX:
 
 Main Screen:
-[![N|Solid](https://lh6.googleusercontent.com/iZkvB0ASa0NjVun2_SFrCkra5IOmYrEeLSnXPRLWCid4sZd_kPTQIP9hKUkaEzDZgEaanT7m2-8-wUaAi616=w1366-h637)](https://nodesource.com/products/nsolid)
+
+![Main Screen](https://lh6.googleusercontent.com/iZkvB0ASa0NjVun2_SFrCkra5IOmYrEeLSnXPRLWCid4sZd_kPTQIP9hKUkaEzDZgEaanT7m2-8-wUaAi616=w1366-h637)
 
 Enrollment Screen:
-[![N|Solid](https://lh3.googleusercontent.com/_ZUgcro-ItNStzXLQCUoexnyO7XDHmcUIfT0_QdWmrMZcagOZw1_9iKcGZELVWv32Tinf5VoFzI8yUAiDtQX=w1366-h637)](https://nodesource.com/products/nsolid)
 
+![Enrollment Screen](https://lh3.googleusercontent.com/_ZUgcro-ItNStzXLQCUoexnyO7XDHmcUIfT0_QdWmrMZcagOZw1_9iKcGZELVWv32Tinf5VoFzI8yUAiDtQX=w1366-h637)
 
  
 ## How we built it:
@@ -30,7 +31,8 @@ Our system has a speaker classification deep neural network model hosted on the 
 Initially we have trained the base model on the TIMIT[2] corpus with 8K sampling rate. Only the first 200 male speakers from the “train” folder are used to train and test the classifier. After creating a satisfiable classifier for speaker recognition using the TIMIT corpus, we then fine-tune the model on our own data consisting of short audio data files (2 to 5 sentences in each) of at least the three members of the team.
 For the classification, we record the audio of multiple speakers talking. Then we extract MelFCC features and feed all the data into the model for it to classify. This model will then return a speaker ID for that segment of speech and this ID is passed as a token to the QA system via the client. This limited domain QA system will process it and return the answer appropriate to the speaker.
 
-[![N|Solid](https://lh4.googleusercontent.com/Hk2X0eszIyGUsIipNGhUujacPlzlqV8621eV9Byv1inyXHbNByIM7xLOWqOGFX3vgf5FpL_m43gyrwyBJ2VU=w1366-h637)](https://nodesource.com/products/nsolid)
+![Architecture](https://lh4.googleusercontent.com/Hk2X0eszIyGUsIipNGhUujacPlzlqV8621eV9Byv1inyXHbNByIM7xLOWqOGFX3vgf5FpL_m43gyrwyBJ2VU=w1366-h637)
+
  
 ## Timeline
 - STEP 1: We collected the data first. We then built and tested a base model of single speaker classification. This was done in 3-4 weeks because a lot of effort was put into preprocessing the input audio signals, so that the neural network classifies accurately.
