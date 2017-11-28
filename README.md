@@ -78,15 +78,22 @@ The detailed results of some of our experiments for Speaker Classification are a
 
 ### Matlab Experiments (using Rasmussen’s conjugate gradient algorithm for training):
 - Using VAD by Theodoros Giannakopoulos: 
- - 8K audio sampling rate
+	- 8K audio sampling rate
+
 	Iteration 500
+	
 	Training Set Accuracy: 0.38316759
+	
 	Test Set Accuracy: 0.17491915
 
-16K audio sampling rate
-Iteration 500
-Training Set Accuracy: 0.36223822
-Test Set Accuracy: 0.22529162
+	- 16K audio sampling rate
+	
+	Iteration 500
+	
+	Training Set Accuracy: 0.36223822
+	
+	Test Set Accuracy: 0.22529162
+	
 
 ### Python Experiments (using Stochastic gradient descent for training and 16K audio sampling rate):
 - Using WebRTC VAD and static learning rate:
