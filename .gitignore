@@ -1,2 +1,9 @@
 .idea
 *.iml
+*.npy
+*.pyc
+node_modules
+tf_models
+data
+timit_converted
+.ipynb_checkpoints

@@ -1,0 +1,221 @@
+
+html {
+  //background-color: red;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+body {
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #c2d3e6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #009688;
+  border-radius: 10px;
+}
+
+body, main {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+}
+
+header {
+  padding: 0.5rem 2rem;
+  h3 {
+    margin: 1rem;
+  }
+}
+
+main {
+  -webkit-app-region: drag;
+  flex-direction: row;
+}
+
+.side-panel {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+
+  .speaker {
+    display: flex;
+    padding: 0.5rem;
+    border-radius: 2px;
+    margin-bottom: 0.5rem;
+
+    @circle-size: 2.5rem;
+
+    .icon {
+      width: @circle-size;
+      height: @circle-size;
+      line-height: @circle-size;
+      text-align: center;
+    }
+
+    .name {
+      padding-left: 1rem;
+      vertical-align: bottom;
+      line-height: @circle-size;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+#enrolled-speakers {
+  padding: 1rem;
+  flex: 1;
+}
+
+#enroll-btn {
+  margin: 2rem 0;
+}
+
+.q-and-a-panel {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .question,
+  .answer {
+    //width: content-width;
+    margin: 0.5rem;
+    line-height: 2rem;
+    display: inline-block;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    clear: both;
+    //width: 50%;
+
+    @circle-size: 2rem;
+    .icon {
+      width: @circle-size;
+      height: @circle-size;
+      line-height: @circle-size;
+      text-align: center;
+    }
+
+    .text {
+      margin: 0 1rem;
+      position: relative;
+    }
+  }
+
+  .question {
+    float: left;
+
+    & > div {
+      display: flex;
+    }
+
+    .text::before {
+      content: '';
+      position: absolute;
+      left: -0.5rem;
+      width: 1px;
+      height: 100%;
+      background-color: #c8c8c8;
+    }
+  }
+
+  .answer {
+    float: right;
+    text-align: right;
+    flex-direction: column-reverse;
+  }
+
+  .history {
+    flex: 1;
+  }
+
+  .new-query {
+    //background-color: yellow;
+    padding: 0.5rem;
+    display: flex;
+    position: relative;
+    height: 5rem;
+
+    #wave-form {
+      flex: 1;
+    }
+
+    #record-query-btn {
+      position: absolute;
+      margin: auto;
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+.enrolling {
+  .side-panel {
+    padding: 1rem;
+    width: 350px;
+    background-color: #fff !important;
+  }
+
+  #enrolled-speakers,
+  #enroll-btn {
+    display: none;
+  }
+
+  #enrollment-form {
+    display: block;
+  }
+
+  .q-and-a-panel {
+    filter: blur(1px);
+    overflow: hidden;
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: rgba(31, 31, 31, 0.85);
+      -webkit-backdrop-filter: blur(10px);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+    }
+  }
+}
+
+#enrollment-form {
+  display: none;
+  #voice-enroll-btn {
+    padding: 1rem;
+
+    & > h6 {
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .sample-text {
+      margin: 1.5rem 0.5rem 1rem;
+      text-align: center;
+    }
+  }
+
+  .row {
+    label {
+      font-size: 0.9rem;
+    }
+  }
+}
