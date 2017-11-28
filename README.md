@@ -1,7 +1,7 @@
 # Multi-Speaker Recognition and Speaker Specific Question Answering System
 
 ## The Team:
-- Pratik Varshney (pvarshney@usc.edu)
+- Pratik Varshney (pvarshne@usc.edu)
 - Sharvil Kadam	(sharvilk@usc.edu)
 - Vritvij Kadam	(vkadam@usc.edu)
 
@@ -45,12 +45,12 @@ Initially we have trained the base model on the TIMIT[2] corpus with 8K sampling
 For the classification, we record the audio of multiple speakers talking. Then we extract MelFCC features and feed all the data into the model for it to classify. This model will then return a speaker ID for that segment of speech and this ID is passed as a token to the QA system via the client. This limited domain QA system will process it and return the answer appropriate to the speaker.
 
 
-### Architecture
+### Architecture:
 
 ![Architecture](https://lh4.googleusercontent.com/Hk2X0eszIyGUsIipNGhUujacPlzlqV8621eV9Byv1inyXHbNByIM7xLOWqOGFX3vgf5FpL_m43gyrwyBJ2VU=w1366-h637)
 
  
-## Timeline
+## Timeline:
 - STEP 1: We collected the data first. We then built and tested a base model of single speaker classification. This was done in 3-4 weeks because a lot of effort was put into preprocessing the input audio signals, so that the neural network classifies accurately.
 - STEP 2: We will then build and test multi-speaker classification model. Tune it to improve accuracy. We then also added an enrollment mechanism, to fine-tune the model. This was done in 3 weeks.
 - STEP 3: Lastly, in the last week we built a speaker specific limited domain question answering system. Then we put it all together with an UI.
@@ -90,6 +90,7 @@ The detailed results of some of our experiments for Speaker Classification are a
 	
 
 ### Python Experiments (using Stochastic gradient descent for training and 16K audio sampling rate):
+
 - Using WebRTC VAD and static learning rate:
 	- learning rate = 0.1<br>
 		Iteration 81, loss = 2.12715560 (Training loss did not improve more than tolerance=0.000100 for two consecutive epochs. So stopped after 81 iterations)<br>
