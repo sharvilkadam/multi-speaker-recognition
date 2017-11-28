@@ -7,20 +7,29 @@
 
 ## Introduction:
 In this project, we have developed a text independent multi-speaker recognition system and speaker specific question answering system. In real world scenarios, we interact with voice assistants which currently responds to queries which are either speaker independent or related to the person who is logged into the system. We aim to make such system more useful by adding a capability to recognize the speaker and respond to queries based on the speaker. The main approaches in area of speaker recognition includes template matching, nearest neighbor, vector quantization, frequency estimation, hidden Markov models, Gaussian mixture models, pattern matching algorithms, neural networks, decision trees, Support Vector Machine (SVM), etc.
+
 The state of the art Speaker Classification and Verification systems use neural networks to achieve 100% classification rate and less than 6% Equal Error Rate, using merely about 1 second and 5 seconds of data (single speaker per data file) respectively [1].
+
 In our system, we have trained a neural network classifier to work for multiple concurrent speakers while providing a limited domain speaker specific question answering system.
  
  
 ## What it does:
-Multi Speaker Recognition and Limited domain question answering system is an application were people can ask question and get answers specific to their knowledge. Suppose there are 3 people enrolled in the system A, B, C, (A is a professor, B is a football player and C is a student). Using voice input “B” asks our system “What is my schedule for today?”, the system responds “Hello B, your schedule for today is football practice at 5pm”. Then later “A” also asks the same system “What is my schedule for today?”, and the system responds “Hello A, your schedule for today is grade midterm exam”. So our system successfully distinguishes between all the enrolled user and interacts with them based on their specific domain knowledge. The enrolling process is as simple as recording your voice by reading a paragraph on the UI and answering a few limited domain questions.
+Multi Speaker Recognition and Limited domain question answering system is an application were people can ask question and get answers specific to their knowledge. 
+
+Suppose there are 3 people enrolled in the system A, B, C, (A is a professor, B is a football player and C is a student). Using voice input “B” asks our system “What is my schedule for today?”, the system responds “Hello B, your schedule for today is football practice at 5pm”. 
+Then later “A” also asks the same system “What is my schedule for today?”, and the system responds “Hello A, your schedule for today is grade midterm exam”. 
+So our system successfully distinguishes between all the enrolled user and interacts with them based on their specific domain knowledge. 
+The enrolling process is as simple as recording your voice by reading a paragraph on the UI and answering a few limited domain questions.
 
 ## UI/UX:
 
-Main Screen:
+### Main Screen:
 
 ![Main Screen](https://lh6.googleusercontent.com/iZkvB0ASa0NjVun2_SFrCkra5IOmYrEeLSnXPRLWCid4sZd_kPTQIP9hKUkaEzDZgEaanT7m2-8-wUaAi616=w1366-h637)
 
-Enrollment Screen:
+
+
+### Enrollment Screen:
 
 ![Enrollment Screen](https://lh3.googleusercontent.com/_ZUgcro-ItNStzXLQCUoexnyO7XDHmcUIfT0_QdWmrMZcagOZw1_9iKcGZELVWv32Tinf5VoFzI8yUAiDtQX=w1366-h637)
 
@@ -30,6 +39,8 @@ Enrollment Screen:
 Our system has a speaker classification deep neural network model hosted on the cloud. This model is trained using the data mentioned below. There will be an enrollment module wherein a new speaker can enroll into the system and the neural network will be fine-tuned accordingly. The client is desktop oriented.
 Initially we have trained the base model on the TIMIT[2] corpus with 8K sampling rate. Only the first 200 male speakers from the “train” folder are used to train and test the classifier. After creating a satisfiable classifier for speaker recognition using the TIMIT corpus, we then fine-tune the model on our own data consisting of short audio data files (2 to 5 sentences in each) of at least the three members of the team.
 For the classification, we record the audio of multiple speakers talking. Then we extract MelFCC features and feed all the data into the model for it to classify. This model will then return a speaker ID for that segment of speech and this ID is passed as a token to the QA system via the client. This limited domain QA system will process it and return the answer appropriate to the speaker.
+
+### Architecture
 
 ![Architecture](https://lh4.googleusercontent.com/Hk2X0eszIyGUsIipNGhUujacPlzlqV8621eV9Byv1inyXHbNByIM7xLOWqOGFX3vgf5FpL_m43gyrwyBJ2VU=w1366-h637)
 
