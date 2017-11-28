@@ -17,8 +17,10 @@ In our system, we have trained a neural network classifier to work for multiple 
 Multi Speaker Recognition and Limited domain question answering system is an application were people can ask question and get answers specific to their knowledge. 
 
 Suppose there are 3 people enrolled in the system A, B, C, (A is a professor, B is a football player and C is a student). Using voice input “B” asks our system “What is my schedule for today?”, the system responds “Hello B, your schedule for today is football practice at 5pm”. 
+
 Then later “A” also asks the same system “What is my schedule for today?”, and the system responds “Hello A, your schedule for today is grade midterm exam”. 
-So our system successfully distinguishes between all the enrolled user and interacts with them based on their specific domain knowledge. 
+So our system successfully distinguishes between all the enrolled user and interacts with them based on their specific domain knowledge.
+ 
 The enrolling process is as simple as recording your voice by reading a paragraph on the UI and answering a few limited domain questions.
 
 ## UI/UX:
@@ -37,8 +39,11 @@ The enrolling process is as simple as recording your voice by reading a paragrap
 ## How we built it:
 
 Our system has a speaker classification deep neural network model hosted on the cloud. This model is trained using the data mentioned below. There will be an enrollment module wherein a new speaker can enroll into the system and the neural network will be fine-tuned accordingly. The client is desktop oriented.
+
 Initially we have trained the base model on the TIMIT[2] corpus with 8K sampling rate. Only the first 200 male speakers from the “train” folder are used to train and test the classifier. After creating a satisfiable classifier for speaker recognition using the TIMIT corpus, we then fine-tune the model on our own data consisting of short audio data files (2 to 5 sentences in each) of at least the three members of the team.
+
 For the classification, we record the audio of multiple speakers talking. Then we extract MelFCC features and feed all the data into the model for it to classify. This model will then return a speaker ID for that segment of speech and this ID is passed as a token to the QA system via the client. This limited domain QA system will process it and return the answer appropriate to the speaker.
+
 
 ### Architecture
 
@@ -72,11 +77,11 @@ For the classification, we record the audio of multiple speakers talking. Then w
 The detailed results of some of our experiments for Speaker Classification are as follows:
 
 ### Matlab Experiments (using Rasmussen’s conjugate gradient algorithm for training):
-Using VAD by Theodoros Giannakopoulos: 
-8K audio sampling rate
-Iteration 500
-Training Set Accuracy: 0.38316759
-Test Set Accuracy: 0.17491915
+- Using VAD by Theodoros Giannakopoulos: 
+ - 8K audio sampling rate
+	Iteration 500
+	Training Set Accuracy: 0.38316759
+	Test Set Accuracy: 0.17491915
 
 16K audio sampling rate
 Iteration 500
@@ -84,13 +89,13 @@ Training Set Accuracy: 0.36223822
 Test Set Accuracy: 0.22529162
 
 ### Python Experiments (using Stochastic gradient descent for training and 16K audio sampling rate):
-Using WebRTC VAD and static learning rate:
+- Using WebRTC VAD and static learning rate:
 learning rate = 0.1
 Iteration 81, loss = 2.12715560 (Training loss did not improve more than tolerance=0.000100 for two consecutive epochs. So stopped after 81 iterations)
 Training set score: 0.404095
 Test set score: 0.130363
 
-Using WebRTC VAD and adaptive learning rate (Divide learning rate by 5 when Training loss did not improve more than tolerance=0.000100 for two consecutive epochs till it reaches 0.000001):
+- Using WebRTC VAD and adaptive learning rate (Divide learning rate by 5 when Training loss did not improve more than tolerance=0.000100 for two consecutive epochs till it reaches 0.000001):
 alpha=1e-3, learning_rate_init=.01   (alpha = L2 penalty or regularization term)
 Iteration 150, loss = 1.40940970
 Training set score: 0.625305
