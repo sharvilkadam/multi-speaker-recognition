@@ -47,7 +47,7 @@ For the classification, we record the audio of multiple speakers talking. Then w
 
 ### Architecture:
 
-![Architecture](https://drive.google.com/open?id=13-vCfhhOmOOtdTr6iBi4ATm9PCA3ZMi-)
+![Architecture](https://drive.google.com/file/d/13-vCfhhOmOOtdTr6iBi4ATm9PCA3ZMi-/preview)
 
  
 ## Timeline:
