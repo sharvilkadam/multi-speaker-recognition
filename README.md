@@ -91,65 +91,66 @@ The detailed results of some of our experiments for Speaker Classification are a
 
 ### Python Experiments (using Stochastic gradient descent for training and 16K audio sampling rate):
 - Using WebRTC VAD and static learning rate:
-	learning rate = 0.1<br>
-	Iteration 81, loss = 2.12715560 (Training loss did not improve more than tolerance=0.000100 for two consecutive epochs. So stopped after 81 iterations)<br>
-	Training set score: 0.404095<br>
-	Test set score: 0.130363<br>
+	- learning rate = 0.1<br>
+		Iteration 81, loss = 2.12715560 (Training loss did not improve more than tolerance=0.000100 for two consecutive epochs. So stopped after 81 iterations)<br>
+		Training set score: 0.404095<br>
+		Test set score: 0.130363<br>
 
 - Using WebRTC VAD and adaptive learning rate (Divide learning rate by 5 when Training loss did not improve more than tolerance=0.000100 for two consecutive epochs till it reaches 0.000001):
-	alpha=1e-3, learning_rate_init=.01   (alpha = L2 penalty or regularization term)<br>
-	Iteration 150, loss = 1.40940970<br>
-	Training set score: 0.625305<br>
-	Test set score: 0.314538<br>
-	Segment level testing accuracy: 0.864168618267<br>
-	File level test accuracy: 0.96<br>
+	- alpha=1e-3, learning_rate_init=.01   (alpha = L2 penalty or regularization term)<br>
+		Iteration 150, loss = 1.40940970<br>
+		Training set score: 0.625305<br>
+		Test set score: 0.314538<br>
+		Segment level testing accuracy: 0.864168618267<br>
+		File level test accuracy: 0.96<br>
 
-	alpha=5e-4, learning_rate_init=.01<br>
-	Iteration 60, loss = 1.62085313<br>
-	Training set score: 0.582599<br>
-	Test set score: 0.319082<br>
-	Segment level testing accuracy: 0.88056206089<br>
-	File level test accuracy: 0.96<br>
+	- alpha=5e-4, learning_rate_init=.01<br>
+		Iteration 60, loss = 1.62085313<br>
+		Training set score: 0.582599<br>
+		Test set score: 0.319082<br>
+		Segment level testing accuracy: 0.88056206089<br>
+		File level test accuracy: 0.96<br>
 
-	alpha=1e-4, learning_rate_init=.05<br>
-	Iteration 500, loss = 1.07831705<br>
-	Training set score: 0.702429<br>
-	Test set score: 0.297609<br>
-	Segment level testing accuracy: 0.873536299766<br>
-	File level test accuracy: 0.975<br>
+	- alpha=1e-4, learning_rate_init=.05<br>
+		Iteration 500, loss = 1.07831705<br>
+		Training set score: 0.702429<br>
+		Test set score: 0.297609<br>
+		Segment level testing accuracy: 0.873536299766<br>
+		File level test accuracy: 0.975<br>
 
-	alpha=1e-4, learning_rate_init=.01<br>
-	Iteration 344, loss = 1.01685610<br>
-	Training set score: 0.723204<br>
-	Test set score: 0.324291<br>
-	Segment level testing accuracy: 0.873536299766<br>
-	File level test accuracy: 0.985<br>
+	- alpha=1e-4, learning_rate_init=.01<br>
+		Iteration 344, loss = 1.01685610<br>
+		Training set score: 0.723204<br>
+		Test set score: 0.324291<br>
+		Segment level testing accuracy: 0.873536299766<br>
+		File level test accuracy: 0.985<br>
 
 - Using VAD by Theodoros Giannakopoulos and adaptive learning rate:
-	alpha=1e-3, learning_rate_init=.01<br>
-	Iteration 499, loss = 0.55597776<br>
-	Training set score: 0.861235<br>
-	Test set score: 0.296744<br>
+	- alpha=1e-3, learning_rate_init=.01<br>
+		Iteration 499, loss = 0.55597776<br>
+		Training set score: 0.861235<br>
+		Test set score: 0.296744<br>
 
-	alpha=1e-2, learning_rate_init=.01<br>
-	Iteration 327, loss = 0.82881428<br>
-	Training set score: 0.835366<br>
-	Test set score: 0.309380<br>
+	- alpha=1e-2, learning_rate_init=.01<br>
+		Iteration 327, loss = 0.82881428<br>
+		Training set score: 0.835366<br>
+		Test set score: 0.309380<br>
 
-	alpha=1e-1, learning_rate_init=.05<br>
-	Iteration 111, loss = 1.68561857<br>
-	Training set score: 0.733652<br>
-	Test set score: 0.349113<br>
+	- alpha=1e-1, learning_rate_init=.05<br>
+		Iteration 111, loss = 1.68561857<br>
+		Training set score: 0.733652<br>
+		Test set score: 0.349113<br>
 
-	alpha=0.5, learning_rate_init=.05<br>
-	Iteration 100, loss = 2.86901901<br>
-	Training set score: 0.546904<br>
-	Test set score: 0.349390<br>
-	Segment level testing accuracy: 0.766331658291<br>
-	File level test accuracy: 0.925<br>
+	- alpha=0.5, learning_rate_init=.05<br>
+		Iteration 100, loss = 2.86901901<br>
+		Training set score: 0.546904<br>
+		Test set score: 0.349390<br>
+		Segment level testing accuracy: 0.766331658291<br>
+		File level test accuracy: 0.925<br>
 
 ### Discussion on results: 
-Using WebRTC VAD for pre processing data, best results (98.5% file level accuracy for testing data) were obtained with alpha=1e-4 and adaptive learning rate with learning_rate_init=0.01 <br>
+Using WebRTC VAD for pre processing data, best results (98.5% file level accuracy for testing data) were obtained with alpha=1e-4 and adaptive learning rate with learning_rate_init=0.01
+
 Similarly, when using VAD by Theodoros Giannakopoulos, best results (92.5% file level accuracy for testing data) were obtained with alpha=0.5 and adaptive learning rate with learning_rate_init=0.05
 
 
