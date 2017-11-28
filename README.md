@@ -27,13 +27,13 @@ The enrolling process is as simple as recording your voice by reading a paragrap
 
 ### Main Screen:
 
-![Main Screen](https://lh4.googleusercontent.com/N1QNGj2jnwQM5Jf096z42la_NX2wZ8_SiUsujn_24oawZW7nIrAUNTcKmMfGhkA4douLzGOo4umtyiNB5ncF=w1301-h678)
+![Main Screen](https://drive.google.com/open?id=1j4ZfDgiQBrMuCpgQDjR4kYjk8sCqCgeM)
 
 
 
 ### Enrollment Screen:
 
-![Enrollment Screen](https://lh6.googleusercontent.com/-jhjrQhSmt_gG-nNfWscInTQ0pUoExVLGEQDuo1OnvkA4UR7Te2NyoE-4f5EYuTwkOwTsKp_lR5N7RpGhx7N=w1301-h678)
+![Enrollment Screen](https://drive.google.com/open?id=1LoW-ondEgzZHDVg9a4_82qV8703k6p4W)
 
  
 ## How we built it:
@@ -47,7 +47,7 @@ For the classification, we record the audio of multiple speakers talking. Then w
 
 ### Architecture:
 
-![Architecture](https://lh4.googleusercontent.com/HOqrSMqaThXhg_mN6ogW8jTg_pfV2UpYKPNeWBLbReH45-bUy6pVQB1drm5lcYdwM9sAKhyQYUI2e8_lUwQ-=w1301-h678)
+![Architecture](https://drive.google.com/open?id=13-vCfhhOmOOtdTr6iBi4ATm9PCA3ZMi-)
 
  
 ## Timeline:
