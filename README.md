@@ -94,7 +94,7 @@ The detailed results of some of our experiments for Speaker Classification are a
 	- learning rate = 0.1<br>
 		Iteration 81, loss = 2.12715560 (Training loss did not improve more than tolerance=0.000100 for two consecutive epochs. So stopped after 81 iterations)<br>
 		Training set score: 0.404095<br>
-		Test set score: 0.130363<br>
+		Test set score: 0.130363
 
 - Using WebRTC VAD and adaptive learning rate (Divide learning rate by 5 when Training loss did not improve more than tolerance=0.000100 for two consecutive epochs till it reaches 0.000001):
 	- alpha=1e-3, learning_rate_init=.01   (alpha = L2 penalty or regularization term)<br>
