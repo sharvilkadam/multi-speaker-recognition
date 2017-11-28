@@ -27,13 +27,13 @@ The enrolling process is as simple as recording your voice by reading a paragrap
 
 ### Main Screen:
 
-![Main Screen](https://lh6.googleusercontent.com/iZkvB0ASa0NjVun2_SFrCkra5IOmYrEeLSnXPRLWCid4sZd_kPTQIP9hKUkaEzDZgEaanT7m2-8-wUaAi616=w1366-h637)
+![Main Screen](https://lh4.googleusercontent.com/N1QNGj2jnwQM5Jf096z42la_NX2wZ8_SiUsujn_24oawZW7nIrAUNTcKmMfGhkA4douLzGOo4umtyiNB5ncF=w1301-h678)
 
 
 
 ### Enrollment Screen:
 
-![Enrollment Screen](https://lh3.googleusercontent.com/_ZUgcro-ItNStzXLQCUoexnyO7XDHmcUIfT0_QdWmrMZcagOZw1_9iKcGZELVWv32Tinf5VoFzI8yUAiDtQX=w1366-h637)
+![Enrollment Screen](https://lh6.googleusercontent.com/-jhjrQhSmt_gG-nNfWscInTQ0pUoExVLGEQDuo1OnvkA4UR7Te2NyoE-4f5EYuTwkOwTsKp_lR5N7RpGhx7N=w1301-h678)
 
  
 ## How we built it:
