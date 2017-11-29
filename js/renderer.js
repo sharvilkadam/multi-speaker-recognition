@@ -101,6 +101,7 @@ const remote = require('electron').remote;
 
                 $.ajax('http://127.0.0.1', {
                     data,
+                    method: 'POST',
                     success: function (data) {
                         console.log(data);
                         history.children().last().remove();
@@ -178,6 +179,7 @@ const remote = require('electron').remote;
             }
         }
         catch (e) {
+            console.log(e);
             console.log("speakers/enroll.json not found");
         }
     }
@@ -246,6 +248,7 @@ const remote = require('electron').remote;
 
             $.ajax('http://127.0.0.1', {
                 data,
+                method: 'POST',
                 success: function (data) {
                     console.log(data);
                     loadSpeakers();
