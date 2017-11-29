@@ -50,6 +50,7 @@ main {
   width: 300px;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   .speaker {
     display: flex;
@@ -59,18 +60,24 @@ main {
 
     @circle-size: 2.5rem;
 
-    .icon {
+    .icon, .material-icons {
       width: @circle-size;
       height: @circle-size;
       line-height: @circle-size;
       text-align: center;
+      padding-right: 0.5rem;
+    }
+
+    .icon {
+      padding-right: 1rem;
+      text-transform: uppercase;
     }
 
     .name {
-      padding-left: 1rem;
       vertical-align: bottom;
       line-height: @circle-size;
       font-size: 1.1rem;
+      text-transform: capitalize;
     }
   }
 }
@@ -140,7 +147,7 @@ main {
     flex-direction: column-reverse;
   }
 
-  .history {
+  #history {
     flex: 1;
   }
 
@@ -153,52 +160,58 @@ main {
 
     #wave-form {
       flex: 1;
+      transition: opacity 0.5s;
     }
 
-    #record-query-btn {
+    #record-query-block {
       position: absolute;
       margin: auto;
       display: block;
       width: 100%;
     }
   }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    pointer-events: none;
+    transition: all 0.2s;
+  }
 }
 
 .enrolling {
-  .side-panel {
-    padding: 1rem;
-    width: 350px;
-    background-color: #fff !important;
-  }
-
-  #enrolled-speakers,
-  #enroll-btn {
-    display: none;
-  }
-
   #enrollment-form {
-    display: block;
+    transform: translateX(0);
   }
 
   .q-and-a-panel {
     filter: blur(1px);
-    overflow: hidden;
     &::after {
-      content: '';
-      position: absolute;
       background-color: rgba(31, 31, 31, 0.85);
       -webkit-backdrop-filter: blur(10px);
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 100;
+      pointer-events: all;
     }
   }
 }
 
 #enrollment-form {
-  display: none;
+  display: block;
+  position: absolute;
+  padding: 1rem;
+  background-color: #fff;
+  width: 350px;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: transform 0.25s;
+
   #voice-enroll-btn {
     padding: 1rem;
 
@@ -217,5 +230,20 @@ main {
     label {
       font-size: 0.9rem;
     }
+  }
+}
+
+.invisible {
+  opacity: 0;
+}
+
+#loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .progress {
+    margin: 0;
   }
 }

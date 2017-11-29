@@ -11,29 +11,26 @@
 <!--<header class="blue-grey darken-3 white-text">
   <h5>M.S.R.C.S.</h5>
 </header>-->
-<main class="enrolling">
+<main class="">
     <div class="side-panel teal z-depth-2">
         <div id="enrolled-speakers">
             <div class="speaker white z-depth-2">
-                <i class="icon blue-grey circle white-text">SK</i>
-                <div class="name">Sharvil Kadam</div>
-            </div>
-            <div class="speaker white z-depth-2">
-                <i class="icon blue-grey circle white-text">VK</i>
-                <div class="name">Vritvij Kadam</div>
-            </div>
-            <div class="speaker white z-depth-2">
-                <i class="icon blue-grey circle white-text">PV</i>
-                <div class="name">Patrik Varshney</div>
+                <i class="material-icons circle bkue-gray-text">error_outline</i>
+                <div class="name">No enrolled speakers found</div>
             </div>
         </div>
         <div id="enroll-btn" class="center-align">
             <a class="btn btn-floating blue-grey darken-3 pulse"><i class="material-icons">add</i></a>
         </div>
         <form id="enrollment-form">
+            <div id="loading-bar" class="invisible">
+                <div class="progress">
+                    <div class="indeterminate blue"></div>
+                </div>
+            </div>
             <div id="voice-enroll-btn" class="center-align">
                 <h6 class="blue-grey-text text-darken-3">Tap the record button to enroll</h6>
-                <a class="btn btn-floating btn-large red <!--pulse-->"><i class="material-icons">mic</i></a>
+                <a id="record-enroll-btn" class="btn btn-floating btn-large red <!--pulse-->"><i class="material-icons">mic</i></a>
                 <div class="sample-text blue-grey-text">
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur fringilla hendrerit tortor nec
                     tincidunt. Morbi porttitor enim ex, quis sagittis mauris molestie non. Cras mollis quis nisi eu
@@ -53,13 +50,15 @@
                     <input id="schedule" type="text">
                 </div>
                 <div class="col s12 center-align">
-                    <button type="submit" class="btn">Submit</button>
+                    <button id="enroll-submit-btn" type="submit" class="btn">
+                        Enroll
+                    </button>
                 </div>
             </div>
         </form>
     </div>
     <div class="q-and-a-panel blue-grey lighten-5">
-        <div class="history">
+        <div id="history">
             <div class="question white z-depth-2">
                 <div>
                     <i class="icon blue-grey circle white-text">SK</i>
@@ -84,15 +83,15 @@
             </div>
         </div>
         <div class="new-query center-align">
-            <div id="wave-form"></div>
-            <div id="record-query-btn">
-                <a class="btn btn-floating btn-large red <!--pulse-->"><i class="material-icons">mic</i></a>
+            <div id="wave-form" class="invisible"></div>
+            <div id="record-query-block">
+                <a id="record-query-btn" class="btn btn-floating btn-large red"><i class="material-icons">mic</i></a>
                 <!--<a class="btn btn-floating btn-large cyan"><i class="material-icons">hearing</i></a>-->
             </div>
         </div>
     </div>
 </main>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/hammer.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="js/siriwave.js"></script>
 <script type="text/javascript" src="js/renderer.js"></script>

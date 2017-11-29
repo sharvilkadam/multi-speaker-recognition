@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "hammer": "0.0.5",
+    "hammerjs": "^2.0.8",
+    "jquery": "^3.2.1",
     "less": "^2.7.3",
     "materialize-css": "^0.100.2",
     "normalize.less": "^1.0.0"

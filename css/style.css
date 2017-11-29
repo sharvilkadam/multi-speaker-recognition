@@ -41,6 +41,7 @@ main {
   width: 300px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .side-panel .speaker {
   display: flex;
@@ -48,17 +49,23 @@ main {
   border-radius: 2px;
   margin-bottom: 0.5rem;
 }
-.side-panel .speaker .icon {
+.side-panel .speaker .icon,
+.side-panel .speaker .material-icons {
   width: 2.5rem;
   height: 2.5rem;
   line-height: 2.5rem;
   text-align: center;
+  padding-right: 0.5rem;
+}
+.side-panel .speaker .icon {
+  padding-right: 1rem;
+  text-transform: uppercase;
 }
 .side-panel .speaker .name {
-  padding-left: 1rem;
   vertical-align: bottom;
   line-height: 2.5rem;
   font-size: 1.1rem;
+  text-transform: capitalize;
 }
 #enrolled-speakers {
   padding: 1rem;
@@ -115,7 +122,7 @@ main {
   text-align: right;
   flex-direction: column-reverse;
 }
-.q-and-a-panel .history {
+.q-and-a-panel #history {
   flex: 1;
 }
 .q-and-a-panel .new-query {
@@ -126,42 +133,48 @@ main {
 }
 .q-and-a-panel .new-query #wave-form {
   flex: 1;
+  transition: opacity 0.5s;
 }
-.q-and-a-panel .new-query #record-query-btn {
+.q-and-a-panel .new-query #record-query-block {
   position: absolute;
   margin: auto;
   display: block;
   width: 100%;
 }
-.enrolling .side-panel {
-  padding: 1rem;
-  width: 350px;
-  background-color: #fff !important;
-}
-.enrolling #enrolled-speakers,
-.enrolling #enroll-btn {
-  display: none;
-}
-.enrolling #enrollment-form {
-  display: block;
-}
-.enrolling .q-and-a-panel {
-  filter: blur(1px);
-  overflow: hidden;
-}
-.enrolling .q-and-a-panel::after {
+.q-and-a-panel::after {
   content: '';
   position: absolute;
-  background-color: rgba(31, 31, 31, 0.85);
-  -webkit-backdrop-filter: blur(10px);
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 100;
+  pointer-events: none;
+  transition: all 0.2s;
+}
+.enrolling #enrollment-form {
+  transform: translateX(0);
+}
+.enrolling .q-and-a-panel {
+  filter: blur(1px);
+}
+.enrolling .q-and-a-panel::after {
+  background-color: rgba(31, 31, 31, 0.85);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: all;
 }
 #enrollment-form {
-  display: none;
+  display: block;
+  position: absolute;
+  padding: 1rem;
+  background-color: #fff;
+  width: 350px;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: transform 0.25s;
 }
 #enrollment-form #voice-enroll-btn {
   padding: 1rem;
@@ -176,4 +189,16 @@ main {
 }
 #enrollment-form .row label {
   font-size: 0.9rem;
+}
+.invisible {
+  opacity: 0;
+}
+#loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+#loading-bar .progress {
+  margin: 0;
 }
