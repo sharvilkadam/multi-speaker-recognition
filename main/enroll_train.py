@@ -66,7 +66,7 @@ def load_model():
     return normalizer, model
 
 
-def enroll_train(preprocess_dir, id_file, max_iter=10, load_existing = False):
+def enroll_train(preprocess_dir, id_file, max_iter=25, load_existing = False):
 
     # load enrolled speakers
     ids = get_ids(id_file)
@@ -81,7 +81,7 @@ def enroll_train(preprocess_dir, id_file, max_iter=10, load_existing = False):
         normalizer, model = load_model()
     else:
         normalizer = preprocessing.StandardScaler().fit(X_train)
-        model = MLPClassifier(hidden_layer_sizes=(200,), max_iter=1, alpha=0.5,
+        model = MLPClassifier(hidden_layer_sizes=(200,), max_iter=max_iter, alpha=0.5,
                               solver='sgd', verbose=10, tol=1e-3, random_state=1,
                               learning_rate_init=.05, learning_rate='adaptive',
                               warm_start=True)
@@ -90,10 +90,9 @@ def enroll_train(preprocess_dir, id_file, max_iter=10, load_existing = False):
     X_train = normalizer.transform(X_train)
 
     # train
-    for i in range(max_iter):
-        model.fit(X_train, Y_train)
-        print("Training set score: %f" % model.score(X_train, Y_train))
-        print()
+    model.fit(X_train, Y_train)
+    print("Training set score: %f" % model.score(X_train, Y_train))
+    print()
 
     # save
     save_model(normalizer, model)

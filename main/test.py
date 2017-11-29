@@ -30,10 +30,8 @@ def concat(x, win_size=10, hop_size=3):
     return np.array(y)
 
 
-def record_data():
-    raw_file_name = 'speakers/eval.wav'
+def get_data(raw_file_name):
     proc_file_name = 'speakers/eval.npy'
-    record_to_file(raw_file_name)
     preprocess_file(raw_file_name, proc_file_name)
 
     # concat frames
@@ -50,8 +48,7 @@ def load_model():
     return normalizer, model
 
 
-def test(id_file):
-
+def predict(id_file, raw_file_name):
     # load enrolled speakers
     ids = get_ids(id_file)
     speakers = list(ids.keys())
@@ -61,7 +58,7 @@ def test(id_file):
     normalizer, model = load_model()
 
     # load data
-    X_eval = record_data()
+    X_eval = get_data(raw_file_name)
 
     # mean var normalize
     X_eval = normalizer.transform(X_eval)
@@ -69,7 +66,6 @@ def test(id_file):
     # predict
     pred = model.predict(X_eval)
     print('pred', pred)
-
 
     # find mode
     from scipy import stats
@@ -80,7 +76,15 @@ def test(id_file):
     for key, val in ids.items():
         if spid == val:
             print('Name:', key)
-            break
+            return key, val
+
+
+
+def test(id_file):
+    raw_file_name = 'speakers/eval.wav'
+    record_to_file(raw_file_name)
+    return predict(id_file, raw_file_name)
+
 
 
 if __name__ == '__main__':

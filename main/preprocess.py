@@ -13,6 +13,7 @@ def preprocess_file(input_path, output_path):
 
     # calc VAD
     segments, sr = vad(processed_wav, sr)
+    print('num segments', len(segments))
 
     if len(segments) > 0:
 

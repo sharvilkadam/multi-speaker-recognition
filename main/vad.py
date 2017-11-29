@@ -147,10 +147,12 @@ def vad(processed_wav, bit_rate):
             limit2 = np.round((count + win + 1) * step_size * bit_rate)
             if limit2 > len(processed_wav):
                 limit2 = len(processed_wav)
-            limits = np.append(limits, np.array([[limit1, limit2]]).astype(int), axis=0)
+            if limit1 >= 0 and limit2 > limit1:
+                limits = np.append(limits, np.array([[limit1, limit2]]).astype(int), axis=0)
 
         count = count + 1
 
+    # print('limits... ', limits)
     # post process
     # Merge overlapping segments
     run = 1
