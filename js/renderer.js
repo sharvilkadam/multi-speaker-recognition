@@ -105,12 +105,12 @@ const remote = require('electron').remote;
                         console.log(data);
                         history.children().last().remove();
                         let speaker = data['speaker'];
-                        let text = data['text'];
+                        let query = data['query'];
                         let response = data['response'];
                         history.append('<div class="question white z-depth-2">\n' +
                             '                <div>\n' +
                             '                    <i class="icon blue-grey circle white-text">' + speaker[0] + '</i>\n' +
-                            '                    <div class="text">' + text + '</div>\n' +
+                            '                    <div class="text">' + query + '</div>\n' +
                             '                </div>\n' +
                             '            </div>');
                         history.append('<div class="answer blue lighten-1 z-depth-2 white-text">\n' +
