@@ -20,10 +20,22 @@ def respond(audioPath, speaker_id):
 			break
 
 	#check if the text is a question or not.
-
+	isQ = 0
+	q_words = ['who', 'what', 'when', 'where', 'why', 'how', 'is', 'can', 'does']
+	audioText = audioText.lower()
+	a_words = audioText.split()
+	for aw in a_words:
+		if aw in q_words:
+			isQ = 1
+			break
 	
-	question_id = get_question_id(audioText)
-	answer = get_answer(question_id,speaker_name)
+	if isQ == 1:    #question
+		question_id = get_question_id(audioText)
+		answer = get_answer(question_id,speaker_name)
+	else:
+		answer = get_generic_response()
+
+	answer = "Hi "+speaker_name+", "+answer
 	return answer
 
 

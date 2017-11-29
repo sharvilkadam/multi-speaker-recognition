@@ -2,6 +2,7 @@ from os import path
 import os
 import json
 import difflib
+import random
 
 def enroll_answer(question_id, answer, speaker_id, speaker_name):
 	apath = '/home/sharvil/deepLearning/projec/python/answers/'
@@ -13,6 +14,7 @@ def enroll_answer(question_id, answer, speaker_id, speaker_name):
 	if not path.isfile(fullpath):
 		with open(fullpath, mode='w') as a_json:
 			a[question_id] = answer
+			a[0] = "Pardon Me, I didn't Understand your speech"
 			a_json.write(json.dumps(a, indent=2))
 	else:
 		with open(fullpath, mode='r') as a_json:
@@ -45,6 +47,10 @@ def get_answer(question_id, speaker_name):
 	else:
 		return "No answers for "+speaker_name
 
+def get_generic_response():
+	g_responses = ["Hmm, That sounds interesting", "I know right!!", "Awesome"]
+	return random.choice(g_responses)
+
 def get_question_id(question):
 	qpath = '/home/sharvil/deepLearning/projec/python/questions.json'
 	if path.isfile(qpath):
@@ -59,3 +65,4 @@ def get_question_id(question):
 	#enroll_answer(3,"Watch the movie U.N.C.L.E.",1,'Vritvij')
 	#print(get_answer("1","Vritvij"))
 	#print(get_question_id("Whats my name"))
+	#print(get_generic_response())
