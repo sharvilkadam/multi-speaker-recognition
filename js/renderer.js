@@ -3,6 +3,7 @@
 // All of the Node.js APIs are available in this process.
 
 const jQuery = require('jquery');
+const remote = require('electron').remote;
 
 (function ($) {
     // Global variables
@@ -262,5 +263,16 @@ const jQuery = require('jquery');
         }
     });
 
+    $('#close-btn').click(function () {
+        console.log('close clicked');
+        let window = remote.getCurrentWindow();
+        window.close();
+    });
+
+    $('#minimize-btn').click(function () {
+        console.log('minimize clicked');
+        let window = remote.getCurrentWindow();
+        window.minimize();
+    });
 
 })(jQuery);
