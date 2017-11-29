@@ -1,6 +1,7 @@
 from os import path
 import os
 import json
+import difflib
 
 def enroll_answer(question_id, answer, speaker_id, speaker_name):
 	apath = '/home/sharvil/deepLearning/projec/python/answers/'
@@ -25,11 +26,12 @@ def add_question(new_question):
 	with open('questions.json', mode='r') as q_json:
 		questions = json.load(q_json)
 	no_of_questions = len(questions)
-	questions[no_of_questions+1] = new_question
+	questions[new_question] = no_of_questions+1
 	with open('questions.json', mode='w') as q_json:
 		q_json.write(json.dumps(questions, indent=2))
 
 def get_answer(question_id, speaker_name):
+	question_id = str(question_id)
 	apath = '/home/sharvil/deepLearning/projec/python/answers/'
 	filename = speaker_name+'_ans.json'
 	fullpath = apath + filename
@@ -43,8 +45,17 @@ def get_answer(question_id, speaker_name):
 	else:
 		return "No answers for "+speaker_name
 
+def get_question_id(question):
+	qpath = '/home/sharvil/deepLearning/projec/python/questions.json'
+	if path.isfile(qpath):
+		with open(qpath, mode='r') as q_json:
+			questions = json.load(q_json)
+		qlist = list(questions.keys())
+		candidate_questions = difflib.get_close_matches(question, qlist, n = 2,cutoff = 0.3)
+		return questions[candidate_questions[0]]
 
-if __name__ == '__main__':
-	#add_question("What is my schedule")
-	enroll_answer(3,"Watch the movie U.N.C.L.E.",1,'Vritvij')
+#if __name__ == '__main__':
+	#add_question("What is my schedule for today")
+	#enroll_answer(3,"Watch the movie U.N.C.L.E.",1,'Vritvij')
 	#print(get_answer("1","Vritvij"))
+	#print(get_question_id("Whats my name"))
