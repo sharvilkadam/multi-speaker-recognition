@@ -10,16 +10,18 @@ import pyaudio
 import wave
 
 THRESHOLD = 500
-CHUNK_SIZE = 1024
 FORMAT = pyaudio.paInt16
 RATE = 16000
+CHUNK_SIZE = int(RATE / 10)  # 100ms
 
 NUM_SILENT = 32
+
 
 def is_silent(snd_data):
     "Returns 'True' if below the 'silent' threshold"
     # print('max', max(snd_data))
     return max(snd_data) < THRESHOLD
+
 
 def normalize(snd_data):
     "Average the volume out"
@@ -30,6 +32,7 @@ def normalize(snd_data):
     for i in snd_data:
         r.append(int(i*times))
     return r
+
 
 def trim(snd_data):
     "Trim the blank spots at the start and end"
@@ -55,12 +58,14 @@ def trim(snd_data):
     snd_data.reverse()
     return snd_data
 
+
 def add_silence(snd_data, seconds):
     "Add silence to the start and end of 'snd_data' of length 'seconds' (float)"
     r = array('h', [0 for i in range(int(seconds*RATE))])
     r.extend(snd_data)
     r.extend([0 for i in range(int(seconds*RATE))])
     return r
+
 
 def record():
     """
@@ -74,11 +79,11 @@ def record():
     """
     p = pyaudio.PyAudio()
     stream = p.open(format=FORMAT, channels=1, rate=RATE,
-        input=True, output=True,
+        input=True,
         frames_per_buffer=CHUNK_SIZE)
 
-    num_silent = 0
-    snd_started = False
+    # num_silent = 0
+    # snd_started = False
 
     r = array('h')
 
@@ -91,8 +96,6 @@ def record():
         except:
             print('Pressed another key')
             break  # if user pressed other than the given key the loop will break
-
-    stop_recording = False
 
     while 1:
 
@@ -108,7 +111,6 @@ def record():
         #     num_silent += 1
         # elif not silent and not snd_started:
         #     snd_started = True
-
 
         try:  # used try so that if user pressed other than the given key error will not be shown
             if keyboard.is_pressed('ctrl'):  # if key 'ctrl' is pressed
@@ -129,9 +131,12 @@ def record():
     r = add_silence(r, 0.5)
     return sample_width, r
 
+
 def record_to_file(path):
     "Records from the microphone and outputs the resulting data to 'path'"
     sample_width, data = record()
+    r = [i for i in data]
+
     data = pack('<' + ('h'*len(data)), *data)
 
     wf = wave.open(path, 'wb')
@@ -140,6 +145,11 @@ def record_to_file(path):
     wf.setframerate(RATE)
     wf.writeframes(data)
     wf.close()
+
+    import librosa
+    y, sr = librosa.load(path, sr=None)
+    print(sr)
+
 
 if __name__ == '__main__':
     print("please speak a word into the microphone")
