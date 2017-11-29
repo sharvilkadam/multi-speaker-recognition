@@ -5,32 +5,42 @@ import os
 from preprocess import preprocess
 from enroll_train import enroll_train
 from test import predict
+from qa import enroll_answer
+from main_speech import respond
+import soundfile as sf
 
 NUM_SPEAKERS = 200
 record_dir = 'speakers/raw/'
 preprocess_dir = 'speakers/preprocessed/'
 ID_FILE = 'speakers/enroll.json'
 raw_file_name = 'speakers/eval.wav'
+pcm_file_name = 'speakers/pcm.wav'
 
 
 def process(js):
     opt = js['type'].lower()
     print('type', opt)
     if opt == 'query':
-        query(js)
+        return query(js)
     elif opt == 'enroll':
-        enroll(js)
+        return enroll(js)
+    return None
 
 
 def query(data):
     y = np.array(data['data']['audio']).flatten()
     sr = data['data']['sampleRate']
     librosa.output.write_wav(raw_file_name, y, sr)
+    # Write out audio as 24bit PCM WAV
+    sf.write(pcm_file_name, y, sr, subtype='PCM_24')
     speaker, spid = predict(ID_FILE, raw_file_name)
     print()
     print('*** Speaker is:', speaker)
     print('*** ID:', spid)
     print()
+    q, ans = respond(pcm_file_name, spid)
+    print('Answer:', ans)
+    return json.dumps({'speaker': speaker, 'query': q, 'response': ans})
 
 
 def save_audio(data):
@@ -66,11 +76,17 @@ def add_id(speaker_name):
             json.dump(ids, f_json)
         print('Speaker', speaker_name, 'is added in ids:', val)
         print('ids =', ids)
+    return ids[speaker_name]
 
 
 def enroll(data):
     speaker_name, filename = save_audio(data)
     preprocess(record_dir, preprocess_dir, speaker_name, filename)
-    add_id(speaker_name)
+    spid = add_id(speaker_name)
+    sch = data['data']['schedule']
+    print('Schedule', sch)
+    enroll_answer(1, sch, spid, speaker_name)  # schedule
+    enroll_answer(2, speaker_name, spid, speaker_name)
     enroll_train(preprocess_dir, ID_FILE, max_iter=25)
+    return "true"
 
