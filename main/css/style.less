@@ -1,0 +1,265 @@
+
+html {
+  //background-color: red;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+body {
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #c2d3e6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #009688;
+  border-radius: 10px;
+}
+
+body, main {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  background-color: transparent;
+}
+
+header {
+  padding: 0.25rem 0.5rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  -webkit-app-region: drag;
+  font-weight: 100;
+  font-size: 1rem;
+  display: flex;
+
+  .menu-btn {
+    -webkit-app-region: no-drag;
+    cursor: pointer;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    margin: 0.25rem;
+    pointer-events: all;
+  }
+}
+
+main {
+  flex-direction: row;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  overflow: hidden;
+}
+
+.side-panel {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .speaker {
+    display: flex;
+    padding: 0.5rem;
+    border-radius: 2px;
+    margin-bottom: 0.5rem;
+
+    @circle-size: 2.5rem;
+
+    .icon, .material-icons {
+      width: @circle-size;
+      height: @circle-size;
+      line-height: @circle-size;
+      text-align: center;
+      padding-right: 0.5rem;
+    }
+
+    .icon {
+      padding-right: 1rem;
+      text-transform: uppercase;
+    }
+
+    .name {
+      vertical-align: bottom;
+      line-height: @circle-size;
+      font-size: 1.1rem;
+      text-transform: capitalize;
+    }
+  }
+}
+
+#enrolled-speakers {
+  padding: 1rem;
+  flex: 1;
+}
+
+#enroll-btn {
+  margin: 2rem 0;
+}
+
+.q-and-a-panel {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .question,
+  .answer {
+    //width: content-width;
+    margin: 0.5rem;
+    line-height: 2rem;
+    display: inline-block;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    clear: both;
+    //width: 50%;
+
+    @circle-size: 2rem;
+    .icon {
+      width: @circle-size;
+      height: @circle-size;
+      line-height: @circle-size;
+      text-align: center;
+    }
+
+    .text {
+      margin: 0 1rem;
+      position: relative;
+    }
+  }
+
+  .question {
+    float: left;
+
+    & > div {
+      display: flex;
+    }
+
+    .text::before {
+      content: '';
+      position: absolute;
+      left: -0.5rem;
+      width: 1px;
+      height: 100%;
+      background-color: #c8c8c8;
+    }
+  }
+
+  .answer {
+    float: right;
+    text-align: right;
+    flex-direction: column-reverse;
+  }
+
+  #history {
+    flex: 1;
+  }
+
+  .new-query {
+    //background-color: yellow;
+    padding: 0.5rem;
+    display: flex;
+    position: relative;
+    height: 5rem;
+
+    #wave-form {
+      flex: 1;
+      transition: opacity 0.5s;
+    }
+
+    #record-query-block {
+      position: absolute;
+      margin: auto;
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    pointer-events: none;
+    transition: all 0.2s;
+  }
+}
+
+.enrolling {
+  #enrollment-form {
+    transform: translateX(0);
+  }
+
+  .q-and-a-panel {
+    filter: blur(1px);
+    &::after {
+      background-color: rgba(31, 31, 31, 0.85);
+      -webkit-backdrop-filter: blur(10px);
+      pointer-events: all;
+    }
+  }
+}
+
+#enrollment-form {
+  display: block;
+  position: absolute;
+  padding: 1rem;
+  background-color: #fff;
+  width: 350px;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: transform 0.25s;
+
+  #voice-enroll-btn {
+    padding: 1rem;
+
+    & > h6 {
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .sample-text {
+      margin: 1.5rem 0.5rem 1rem;
+      text-align: center;
+    }
+  }
+
+  .row {
+    label {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.invisible {
+  opacity: 0;
+}
+
+#loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .progress {
+    margin: 0;
+  }
+}

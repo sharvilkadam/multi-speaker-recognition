@@ -1,0 +1,219 @@
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif !important;
+}
+body {
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 20px;
+}
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+::-webkit-scrollbar-track {
+  background-color: #c2d3e6;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #009688;
+  border-radius: 10px;
+}
+body,
+main {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  background-color: transparent;
+}
+header {
+  padding: 0.25rem 0.5rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  -webkit-app-region: drag;
+  font-weight: 100;
+  font-size: 1rem;
+  display: flex;
+}
+header .menu-btn {
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  margin: 0.25rem;
+  pointer-events: all;
+}
+main {
+  flex-direction: row;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  overflow: hidden;
+}
+.side-panel {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.side-panel .speaker {
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 2px;
+  margin-bottom: 0.5rem;
+}
+.side-panel .speaker .icon,
+.side-panel .speaker .material-icons {
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  text-align: center;
+  padding-right: 0.5rem;
+}
+.side-panel .speaker .icon {
+  padding-right: 1rem;
+  text-transform: uppercase;
+}
+.side-panel .speaker .name {
+  vertical-align: bottom;
+  line-height: 2.5rem;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+}
+#enrolled-speakers {
+  padding: 1rem;
+  flex: 1;
+}
+#enroll-btn {
+  margin: 2rem 0;
+}
+.q-and-a-panel {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.q-and-a-panel .question,
+.q-and-a-panel .answer {
+  margin: 0.5rem;
+  line-height: 2rem;
+  display: inline-block;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  clear: both;
+}
+.q-and-a-panel .question .icon,
+.q-and-a-panel .answer .icon {
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+}
+.q-and-a-panel .question .text,
+.q-and-a-panel .answer .text {
+  margin: 0 1rem;
+  position: relative;
+}
+.q-and-a-panel .question {
+  float: left;
+}
+.q-and-a-panel .question > div {
+  display: flex;
+}
+.q-and-a-panel .question .text::before {
+  content: '';
+  position: absolute;
+  left: -0.5rem;
+  width: 1px;
+  height: 100%;
+  background-color: #c8c8c8;
+}
+.q-and-a-panel .answer {
+  float: right;
+  text-align: right;
+  flex-direction: column-reverse;
+}
+.q-and-a-panel #history {
+  flex: 1;
+}
+.q-and-a-panel .new-query {
+  padding: 0.5rem;
+  display: flex;
+  position: relative;
+  height: 5rem;
+}
+.q-and-a-panel .new-query #wave-form {
+  flex: 1;
+  transition: opacity 0.5s;
+}
+.q-and-a-panel .new-query #record-query-block {
+  position: absolute;
+  margin: auto;
+  display: block;
+  width: 100%;
+}
+.q-and-a-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  pointer-events: none;
+  transition: all 0.2s;
+}
+.enrolling #enrollment-form {
+  transform: translateX(0);
+}
+.enrolling .q-and-a-panel {
+  filter: blur(1px);
+}
+.enrolling .q-and-a-panel::after {
+  background-color: rgba(31, 31, 31, 0.85);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: all;
+}
+#enrollment-form {
+  display: block;
+  position: absolute;
+  padding: 1rem;
+  background-color: #fff;
+  width: 350px;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: transform 0.25s;
+}
+#enrollment-form #voice-enroll-btn {
+  padding: 1rem;
+}
+#enrollment-form #voice-enroll-btn > h6 {
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+#enrollment-form #voice-enroll-btn .sample-text {
+  margin: 1.5rem 0.5rem 1rem;
+  text-align: center;
+}
+#enrollment-form .row label {
+  font-size: 0.9rem;
+}
+.invisible {
+  opacity: 0;
+}
+#loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+#loading-bar .progress {
+  margin: 0;
+}
