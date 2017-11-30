@@ -42,16 +42,15 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
         return data
 
     def do_POST(self):
+        # Send response status code
+        self.send_response(200)
+
         data = self.parse_POST()
         # print(data)
         js = json.loads(data)
         # print(js)
         message = process(js)
         print('msg', message)
-
-
-        # Send response status code
-        self.send_response(200)
 
         # Send headers
         self.send_header('Content-type', 'application/json')

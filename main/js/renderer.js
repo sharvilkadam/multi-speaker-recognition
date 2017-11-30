@@ -60,6 +60,38 @@ let request = require('request');
         return output;
     }
 
+    function reset(){
+         request.post('http://127.0.0.1', {json: true, body: {type: 'resp'}}, function(err, res, body) {
+                    console.log(err, res, body);
+                    if (!err && res.statusCode === 200) {
+                        console.log(body);
+                        history.children().last().remove();
+                        let data = body;
+                        let speaker = data['speaker'];
+                        let query = data['query'];
+                        let response = data['response'];
+                        history.append('<div class="question white z-depth-2">\n' +
+                            '                <div>\n' +
+                            '                    <i class="icon blue-grey circle white-text">' + speaker[0] + '</i>\n' +
+                            '                    <div class="text">' + query + '</div>\n' +
+                            '                </div>\n' +
+                            '            </div>');
+                        history.append('<div class="answer blue lighten-1 z-depth-2 white-text">\n' +
+                            '                <div>\n' +
+                            '                    <div class="text">' + response + '</div>\n' +
+                            '                </div>\n' +
+                            '            </div>');
+                    }
+                    else {
+                        history.children().last().remove();
+                        Materialize.toast('Couldn\'t connect to the server', 3000);
+                    }
+
+                    recordQueryBtn.removeClass('disabled');
+                    waiting = false;
+                });
+    }
+
 
     // Load enrolled speakers
     loadSpeakers();
@@ -101,7 +133,13 @@ let request = require('request');
                     }
                 };
 
-                request.post('http://127.0.0.1', {json: true, body: data}, function(err, res, body) {
+                 request.post('http://127.0.0.1', {json: true, body: data}, function(err, res, body) {
+
+                    if (err) {
+                        console.error('error posting json: ', err)
+                        throw err
+                      }
+
                     console.log(err, res, body);
                     if (!err && res.statusCode === 200) {
                         console.log(body);
@@ -125,11 +163,19 @@ let request = require('request');
                     else {
                         history.children().last().remove();
                         Materialize.toast('Couldn\'t connect to the server', 3000);
+
+                        setTimeout(reset, 5000);
                     }
 
                     recordQueryBtn.removeClass('disabled');
                     waiting = false;
                 });
+
+               
+
+                
+               
+
 
             } else {
                 siriWave.setSpeed(0.1);
@@ -247,7 +293,7 @@ let request = require('request');
             loadingBar.removeClass('invisible');
 
 
-            request.post('http://127.0.0.1', {json: true, body: data}, function(err, res, body) {
+            request.post('http://127.0.0.1', {json: true, body: data, timeout: 100000}, function(err, res, body) {
                 if (!err && res.statusCode === 200) {
                     console.log(body);
                     loadSpeakers();

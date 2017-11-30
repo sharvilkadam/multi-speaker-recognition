@@ -8,6 +8,8 @@ from test import predict
 from qa import enroll_answer
 from main_speech import respond
 import soundfile as sf
+import time
+
 
 NUM_SPEAKERS = 200
 record_dir = 'speakers/raw/'
@@ -17,13 +19,30 @@ raw_file_name = 'speakers/eval.wav'
 pcm_file_name = 'speakers/pcm.wav'
 
 
+def save(data):
+    f = open('response.txt', 'w')
+    f.write(data)
+    f.close()
+    return None
+
+def load():
+    f = open('response.txt', 'r')
+    message = f.read()
+    print(message)
+    f.close()
+    return message
+
+
 def process(js):
     opt = js['type'].lower()
     print('type', opt)
     if opt == 'query':
-        return query(js)
+        return save(query(js))
     elif opt == 'enroll':
-        return enroll(js)
+        return save(enroll(js))
+    elif opt == 'resp':
+        time.sleep(5)
+        return load()
     return None
 
 
