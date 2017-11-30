@@ -41,6 +41,19 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
         return data
 
     def do_POST(self):
+        if 1:
+            # Send response status code
+            self.send_response(200)
+
+            # Send headers
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+
+            # Send message back to client
+            message = "Hello world!"
+            # Write content as utf-8 data
+            self.wfile.write(bytes(message, "utf8"))
+            return
         data = self.parse_POST()
         # print(data)
         js = json.loads(data)
@@ -51,12 +64,13 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
 
         # Send headers
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
+        # self.send_header('Content-type', 'text/plain')
+        # self.end_headers()
 
         # Send message back to client
         # Write content as utf-8 data
         self.wfile.write(bytes(message, "utf8"))
+        return
 
 
 def run():

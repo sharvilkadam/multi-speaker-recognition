@@ -101,6 +101,7 @@ const remote = require('electron').remote;
 
                 $.ajax('http://127.0.0.1', {
                     data,
+                    method: 'POST',
                     success: function (data) {
                         console.log(data);
                         history.children().last().remove();
@@ -120,13 +121,14 @@ const remote = require('electron').remote;
                             '            </div>');
                     },
                     error: function (xhr, textStatus, errorThrown) {
-                        // console.log(xhr);
+                        console.log(xhr, textStatus, errorThrown);
                         history.children().last().remove();
                         Materialize.toast('Couldn\'t connect to the server', 3000);
                     },
                     complete: function () {
                         recordQueryBtn.removeClass('disabled');
                         waiting = false;
+                        console.log('ajfaklhfkafjk');
                     }
                 });
 
@@ -145,6 +147,7 @@ const remote = require('electron').remote;
 
                 startRecording();
             }
+            return false;
         }
     });
 
@@ -178,6 +181,7 @@ const remote = require('electron').remote;
             }
         }
         catch (e) {
+            console.log(e);
             console.log("speakers/enroll.json not found");
         }
     }
@@ -246,6 +250,7 @@ const remote = require('electron').remote;
 
             $.ajax('http://127.0.0.1', {
                 data,
+                method: 'POST',
                 success: function (data) {
                     console.log(data);
                     loadSpeakers();

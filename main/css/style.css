@@ -70,10 +70,12 @@ main {
   height: 2.5rem;
   line-height: 2.5rem;
   text-align: center;
+}
+.side-panel .speaker .material-icons {
   padding-right: 0.5rem;
 }
 .side-panel .speaker .icon {
-  padding-right: 1rem;
+  margin-right: 1rem;
   text-transform: uppercase;
 }
 .side-panel .speaker .name {
