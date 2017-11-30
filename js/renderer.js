@@ -249,7 +249,7 @@ let request = require('request');
 
             request.post('http://127.0.0.1', {json: true, body: data}, function(err, res, body) {
                 if (!err && res.statusCode === 200) {
-                    console.log(data);
+                    console.log(body);
                     loadSpeakers();
                     Materialize.toast(name + ' enrolled', 3000);
                 } else {
