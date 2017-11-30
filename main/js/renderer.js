@@ -4,6 +4,8 @@
 
 const jQuery = require('jquery');
 const remote = require('electron').remote;
+let request = require('request');
+
 
 (function ($) {
     // Global variables
@@ -91,20 +93,20 @@ const remote = require('electron').remote;
                 isListening = false;
 
                 let recording = stopRecording();
-                let data = JSON.stringify({
+                let data = {
                     type: 'query',
                     data: {
                         sampleRate: sampleRate,
                         audio: recording,
                     }
-                });
+                };
 
-                $.ajax('http://127.0.0.1', {
-                    data,
-                    method: 'POST',
-                    success: function (data) {
-                        console.log(data);
+                request.post('http://127.0.0.1', {json: true, body: data}, function(err, res, body) {
+                    console.log(err, res, body);
+                    if (!err && res.statusCode === 200) {
+                        console.log(body);
                         history.children().last().remove();
+                        let data = body;
                         let speaker = data['speaker'];
                         let query = data['query'];
                         let response = data['response'];
@@ -119,17 +121,14 @@ const remote = require('electron').remote;
                             '                    <div class="text">' + response + '</div>\n' +
                             '                </div>\n' +
                             '            </div>');
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        console.log(xhr, textStatus, errorThrown);
+                    }
+                    else {
                         history.children().last().remove();
                         Materialize.toast('Couldn\'t connect to the server', 3000);
-                    },
-                    complete: function () {
-                        recordQueryBtn.removeClass('disabled');
-                        waiting = false;
-                        console.log('ajfaklhfkafjk');
                     }
+
+                    recordQueryBtn.removeClass('disabled');
+                    waiting = false;
                 });
 
             } else {
@@ -147,7 +146,6 @@ const remote = require('electron').remote;
 
                 startRecording();
             }
-            return false;
         }
     });
 
@@ -235,7 +233,7 @@ const remote = require('electron').remote;
                 return;
             }
 
-            let data = JSON.stringify({
+            let data = {
                 type: 'enroll',
                 data: {
                     name,
@@ -243,27 +241,23 @@ const remote = require('electron').remote;
                     sampleRate: sampleRate,
                     audio: enrollmentAudio,
                 }
-            });
+            };
 
 
             loadingBar.removeClass('invisible');
 
-            $.ajax('http://127.0.0.1', {
-                data,
-                method: 'POST',
-                success: function (data) {
-                    console.log(data);
+
+            request.post('http://127.0.0.1', {json: true, body: data}, function(err, res, body) {
+                if (!err && res.statusCode === 200) {
+                    console.log(body);
                     loadSpeakers();
                     Materialize.toast(name + ' enrolled', 3000);
-                },
-                error: function (xhr, textStatus, errorThrown) {
+                } else {
                     Materialize.toast('Speaker couldn\'t be enrolled. Please try again', 3000);
-                },
-                complete: function () {
-                    waiting = false;
-                    enrollSubmitBtn.removeClass('disabled');
-                    loadingBar.addClass('invisible');
                 }
+                waiting = false;
+                enrollSubmitBtn.removeClass('disabled');
+                loadingBar.addClass('invisible');
             });
         }
     });
