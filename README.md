@@ -1,6 +1,6 @@
 # Multi-Speaker Recognition and Speaker Specific Question Answering System
 
-## The Team:
+## Team CryogenX:
 - Pratik Varshney (pvarshne@usc.edu)
 - Sharvil Kadam	(sharvilk@usc.edu)
 - Vritvij Kadam	(vkadam@usc.edu)
